@@ -26,9 +26,9 @@ namespace WeatherApplication.Infrastructure.Data
             this.memoryCache = memoryCache;
         }
 
-        public GetCurrentStatisticsResponse GetCurrentStatisticsOfCity(GetStatisticsRequest request)
+        public GetStatisticsWithCurrentTemperatureResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request)
         {
-            GetCurrentStatisticsResponse response = null;
+            GetStatisticsWithCurrentTemperatureResponse response = null;
 
             //Checks memory cache for fit value
             if (memoryCache.TryGetValue(request.CityId, out response))
@@ -43,7 +43,7 @@ namespace WeatherApplication.Infrastructure.Data
 
             if (weatherHistory != null && city != null)
             {
-                response = new GetCurrentStatisticsResponse
+                response = new GetStatisticsWithCurrentTemperatureResponse
                 {
                     CityName = city.CityName,
                     AverageTemperature = TemperatureCalculus.GetAverageTemperature(weatherHistory),
@@ -79,7 +79,7 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public async Task SaveStatisticsOfCityAsync(SaveStatisticsRequest request)
+        public async Task SaveStatisticsAndCurrentTemperatureAsync(SaveStatisticsRequest request)
         {
             //Gets not archived weather models of certain city
             var weatherHistory = context.WeatherModels.Where(wm => wm.CityModelId == request.CityId && wm.IsArchived == false);
@@ -97,7 +97,7 @@ namespace WeatherApplication.Infrastructure.Data
                 };
 
                 //Sets new cache for 2 min. with every save request
-                var cachingValue = mapper.Map<GetCurrentStatisticsResponse>(statistics);
+                var cachingValue = mapper.Map<GetStatisticsWithCurrentTemperatureResponse>(statistics);
                 cachingValue.CityName = context.CityModels.SingleOrDefault(c => c.Id == request.CityId).CityName;
                 CacheOperations.SetCache(memoryCache, request.CityId, cachingValue, 2);
 

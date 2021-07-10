@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
 namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
@@ -6,7 +7,6 @@ namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
     public class DeleteWeatherRequest
     {
         [Required]
-        [CorrectId]
-        public int WeatherModelId { get; set; }
+        public DateTime ObservationTime { get; set; }
     }
 }

@@ -23,9 +23,10 @@ namespace WeatherApplication.Infrastructure.Data.Mapping
                 .ForMember(dest => dest.MaxTemperature, opt => opt.MapFrom(src => src.MaxTemperature))
                 .ForMember(dest => dest.MinTemperature, opt => opt.MapFrom(src => src.MinTemperature))
                 .ForMember(dest => dest.AverageTemperature, opt => opt.MapFrom(src => src.AverageTemperature))
-                .ForMember(dest => dest.DateModelCreated, opt => opt.MapFrom(src => src.DateStatisticsCreated.ToString("yyyy/MM/dd hh:mm")));
+                .ForMember(dest => dest.DateModelCreated, opt => opt.MapFrom(src => src.DateStatisticsCreated.ToString("yyyy/MM/dd hh:mm")))
+                .ForMember(dest => dest.StatisticalModelId, opt => opt.MapFrom(src => src.Id));
 
-            CreateMap<StatisticalModel, GetCurrentStatisticsResponse>()
+            CreateMap<StatisticalModel, GetStatisticsWithCurrentTemperatureResponse>()
                 .ForMember(dest => dest.MaxTemperature, opt => opt.MapFrom(src => src.MaxTemperature))
                 .ForMember(dest => dest.MinTemperature, opt => opt.MapFrom(src => src.MinTemperature))
                 .ForMember(dest => dest.AverageTemperature, opt => opt.MapFrom(src => src.AverageTemperature))

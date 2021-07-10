@@ -10,8 +10,5 @@ namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
         public double TemperatureInCelsius { get; set; }
         [Required]
         public DateTime ObservationTime { get; set; }
-        [Required]
-        [CorrectId]
-        public int WeatherModelId { get; set; }
     }
 }

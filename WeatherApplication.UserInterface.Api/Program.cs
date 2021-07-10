@@ -36,6 +36,7 @@ namespace WeatherApplication.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseWebRoot("../WeatherApplication.UserInterface.Api/wwwroot");
                 });
     }
 }

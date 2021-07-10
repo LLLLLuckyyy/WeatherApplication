@@ -101,9 +101,10 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public async Task DeleteWeatherAsync(DeleteWeatherRequest request)
+        public async Task DeleteWeatherAtCurrentTimeAsync(DeleteWeatherRequest request)
         {
-            var weatherModel = context.WeatherModels.SingleOrDefault(wm => wm.Id == request.WeatherModelId);
+            var weatherModel = context.WeatherModels.ToList()
+                .LastOrDefault(wm => (wm.ObservationTime - request.ObservationTime).TotalMinutes < 15);
 
             if (weatherModel != null)
             {
@@ -116,13 +117,13 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public async Task EditWeatherAsync(EditWeatherRequest request)
+        public async Task EditWeatherAtCurrentTimeAsync(EditWeatherRequest request)
         {
-            var weatherModel = context.WeatherModels.SingleOrDefault(wm => wm.Id == request.WeatherModelId);
+            var weatherModel = context.WeatherModels.ToList()
+                .LastOrDefault(wm => (wm.ObservationTime - request.ObservationTime).TotalMinutes < 15);
 
             if (weatherModel != null)
             {
-                weatherModel.ObservationTime = request.ObservationTime;
                 weatherModel.Temperature = request.TemperatureInCelsius;
                 await context.SaveChangesAsync();
             }

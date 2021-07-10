@@ -18,13 +18,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetCurrent(GetStatisticsRequest request)
+        public IActionResult GetStatisticsAndCurrentTemperatureInCity(GetStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var statistics = repository.GetCurrentStatisticsOfCity(request);
+                    var statistics = repository.GetStatisticsAndCurrentTemperature(request);
                     return Ok(statistics);
                 }
                 catch (ArgumentException)
@@ -44,7 +44,7 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetAllSaved(GetStatisticsRequest request)
+        public IActionResult GetAllStatisticalModelsOfCity(GetStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
@@ -70,13 +70,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Save(SaveStatisticsRequest request)
+        public async Task<IActionResult> SaveStatisticsAndCurrentTemperatureInCity(SaveStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await repository.SaveStatisticsOfCityAsync(request);
+                    await repository.SaveStatisticsAndCurrentTemperatureAsync(request);
                     return Ok();
                 }
                 catch (ArgumentException)
@@ -96,7 +96,7 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpDelete]
         [Route("[action]")]
-        public async Task<IActionResult> Delete(DeleteStatisticsRequest request)
+        public async Task<IActionResult> DeleteStatisticalModel(DeleteStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {

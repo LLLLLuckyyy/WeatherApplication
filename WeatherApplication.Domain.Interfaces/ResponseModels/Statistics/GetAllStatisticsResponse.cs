@@ -2,6 +2,8 @@
 {
     public class GetAllStatisticsResponse
     {
+        public int StatisticalModelId { get; set; }
+
         public string DateModelCreated { get; set; }
 
         public double MaxTemperature { get; set; }
