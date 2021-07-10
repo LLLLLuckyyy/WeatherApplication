@@ -1,15 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WeatherApplication.Domain.Interfaces;
 using WeatherApplication.Infrastructure.Data;
 using WeatherApplication.Infrastructure.Data.Mapping;
@@ -35,9 +30,11 @@ namespace WeatherApplication.Api
             services.AddTransient<IStatisticsRepo, StatisticsRepository>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<WeatherAppContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<WeatherAppContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
 
-            services.AddSingleton<RootFolder>(new RootFolder { Path = Environment.WebRootPath });
+            services.AddSingleton(new RootFolder { Path = Environment.WebRootPath });
+
+            services.AddMemoryCache();
 
             var mappingConfig = new MapperConfiguration(mc =>
             {

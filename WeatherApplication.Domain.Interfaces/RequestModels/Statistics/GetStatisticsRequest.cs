@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
 namespace WeatherApplication.Domain.Interfaces.RequestModels.Statistics
 {
     public class GetStatisticsRequest
     {
         [Required]
+        [CorrectId]
         public int CityId { get; set; }
     }
 }

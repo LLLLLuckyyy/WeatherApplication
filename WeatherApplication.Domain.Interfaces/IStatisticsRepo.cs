@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeatherApplication.Domain.Core;
 using WeatherApplication.Domain.Interfaces.RequestModels.Statistics;
+using WeatherApplication.Domain.Interfaces.ResponseModels.Statistics;
 
 namespace WeatherApplication.Domain.Interfaces
 {
     public interface IStatisticsRepo
     {
-        StatisticalModel GetStatistics(GetStatisticsRequest request);
-        Task SaveStatistics(SaveStatisticsRequest request);
-        Task DeleteStatistics(DeleteStatisticsRequest request);
+        //Returns statistics of certain city with current temperature
+        //from cache if exists or creates response and put it in cache
+        GetCurrentStatisticsResponse GetCurrentStatisticsOfCity(GetStatisticsRequest request);
+
+        //Returns all statistical models of certain city from database
+        List<GetAllStatisticsResponse> GetAllStatisticalModelsOfCity(GetStatisticsRequest request);
+
+        //Saves statistics of certain city to database and caches it
+        Task SaveStatisticsOfCityAsync(SaveStatisticsRequest request);
+
+        //Deletes statistical model from database by Id
+        Task DeleteStatisticalModelAsync(DeleteStatisticsRequest request);
     }
 }

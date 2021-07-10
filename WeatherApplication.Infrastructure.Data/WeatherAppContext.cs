@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WeatherApplication.Domain.Core;
 
 namespace WeatherApplication.Infrastructure.Data
@@ -16,9 +13,18 @@ namespace WeatherApplication.Infrastructure.Data
         {
             Database.EnsureCreated();
         }
-        
-        protected override void OnModelCreation(DbModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CityModel>()
+                .HasMany(c => c.WeatherHistory)
+                .WithOne(wh => wh.CityModel)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CityModel>()
+                .HasMany(c => c.Statistics)
+                .WithOne(s => s.CityModel)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

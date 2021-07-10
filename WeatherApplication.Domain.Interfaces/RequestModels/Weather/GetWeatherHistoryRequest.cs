@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
 namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
 {
     public class GetWeatherHistoryRequest
     {
+        [CorrectId]
         public int CityId { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
 namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
 {
-    public class EditWeatherInfoRequest
+    public class EditWeatherRequest
     {
         [Required]
         public double TemperatureInCelsius { get; set; }
         [Required]
         public DateTime ObservationTime { get; set; }
         [Required]
+        [CorrectId]
         public int WeatherModelId { get; set; }
     }
 }

@@ -1,48 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using WeatherApplication.Domain.Core;
+using WeatherApplication.Domain.Interfaces.ResponseModels.Weather;
 
 namespace WeatherApplication.Infrastructure.Data.WorkWithFiles
 {
     public static class FileOperations
     {
-        public static async Task CreateAndFillFileAsync(string webRootPath, IQueryable<WeatherModel> weatherModels)
+        //Creates CityName.json file in webRootPath/Files
+        public static async Task CreateAndFillFileAsync(string webRootPath, string cityName, IEnumerable<GetWeatherHistoryResponse> response)
         {
-            string path = webRootPath + "/ArchivedData.txt";
+            string folderPath = webRootPath + "/Files";
+            string filePath = folderPath + $"/{cityName}.json";
 
-            using (TextWriter tr = new StreamWriter(path, false))
+            if (!Directory.Exists(folderPath))
             {
-                foreach (var model in weatherModels)
+                Directory.CreateDirectory(folderPath);
+            }
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Append))
+            {
+                foreach (var r in response)
                 {
-                    await tr.WriteLineAsync("{");
-                    await tr.WriteLineAsync($"Id: {model.Id}");
-                    await tr.WriteLineAsync($"Temperature (with time): {model.TemperatureWithTimeStemp}");
-                    await tr.WriteLineAsync($"CityId: {model.CityId}");
-                    await tr.WriteLineAsync("},");
+                    await JsonSerializer.SerializeAsync(fs, r);
                 }
             }
         }
 
-        public static async Task CompressFileAsync(string webRootPath)
+        //Updates compressed file in webRootPath
+        public static void CompressFile(string webRootPath)
         {
-            string filePath = webRootPath + "/ArchivedData.txt";
-            string targetPath = webRootPath + "/ArchivedData.gz";
+            string sourceDirectory = webRootPath + "/Files";
+            string filePath = webRootPath + "/ArchivedData.zip";
 
-            using (FileStream sourceStream = new FileStream(filePath, FileMode.Open))
-            {
-                using (FileStream targetStream = File.Create(targetPath))
-                {
-                    using (GZipStream compressionStream = new GZipStream(targetStream, CompressionMode.Compress))
-                    {
-                        await sourceStream.CopyToAsync(compressionStream);
-                    }
-                }
-            }
+            File.Delete(filePath);
+
+            ZipFile.CreateFromDirectory(sourceDirectory, filePath, CompressionLevel.Optimal, false);
+        }
+
+        //Deletes CityName.json file
+        public static void DeleteArchivedDataOfCity(string webRootPath, string cityName)
+        {
+            string folderPath = webRootPath + "/Files";
+            string filePath = folderPath + $"/{cityName}.json";
+
+            File.Delete(filePath);
+            CompressFile(webRootPath);
         }
     }
 }

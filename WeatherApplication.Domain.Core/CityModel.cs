@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeatherApplication.Domain.Core
 {
+    //Main model
     public class CityModel
     {
         [Key]
@@ -12,7 +12,9 @@ namespace WeatherApplication.Domain.Core
         [Required]
         public string CityName { get; set; }
 
-        public StatisticalModel Statistics { get; set; }
+        
+        public List<StatisticalModel> Statistics { get; set; }
+        
         public List<WeatherModel> WeatherHistory { get; set; }
     }
 }

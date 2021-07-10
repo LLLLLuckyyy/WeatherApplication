@@ -1,49 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WeatherApplication.Domain.Core;
 
 namespace WeatherApplication.Infrastructure.Data.StatisticalCalculus
 {
-    //weather models must be with the same CityId
+    //Calculates temperature values
+    //For correct calculation you must pass weather models with same CityId
     public static class TemperatureCalculus
     {
-        public static double GetMinTemperature(IQueryable<WeatherModel> weatherModels)
+        public static double GetMinTemperature(IQueryable<WeatherModel> weatherHistory)
         {
-            var minTemperature = GetTemperature(weatherModels).Min();
+            var minTemperature = GetTemperature(weatherHistory).Min();
 
             return minTemperature;
         }
 
-        public static double GetMaxTemperature(IQueryable<WeatherModel> weatherModels)
+        public static double GetMaxTemperature(IQueryable<WeatherModel> weatherHistory)
         {
-            var maxTemperature = GetTemperature(weatherModels).Max();
+            var maxTemperature = GetTemperature(weatherHistory).Max();
 
             return maxTemperature;
         }
 
-        public static double GetAverageTemperature(IQueryable<WeatherModel> weatherModels)
+        public static double GetAverageTemperature(IQueryable<WeatherModel> weatherHistory)
         {
-            var avgTemperature = GetTemperature(weatherModels).Average();
+            var avgTemperature = GetTemperature(weatherHistory).Average();
 
             return avgTemperature;
         }
 
-        public static double GetCurrentTemperature(IQueryable<WeatherModel> weatherModels)
+        public static string GetCurrentTemperature(IQueryable<WeatherModel> weatherHistory)
         {
-            var now = DateTime.Now;
-            var closestModel = weatherModels
-                .Where(wm => now.Subtract(wm.ObservationTime).Hours < 1)
+            var closestModel = weatherHistory.ToList()
+                .Where(wm => DateTime.Now.Subtract(wm.ObservationTime).TotalHours < 1)
                 .LastOrDefault();
 
+            if (closestModel == null)
+            {
+                return "Absent";
+            }
+
             var currentTemperature = closestModel.Temperature;
-            return currentTemperature;
+            return currentTemperature.ToString();
         }
 
-        public static IQueryable<double> GetTemperature(IQueryable<WeatherModel> weatherModels)
+        public static IQueryable<double> GetTemperature(IQueryable<WeatherModel> weatherHistory)
         {
-            return weatherModels.Select(wm => wm.Temperature);
+            return weatherHistory.Select(wm => wm.Temperature);
         }
     }
 }

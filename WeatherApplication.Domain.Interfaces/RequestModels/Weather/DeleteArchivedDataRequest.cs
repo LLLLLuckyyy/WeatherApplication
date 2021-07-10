@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
-namespace WeatherApplication.Domain.Interfaces.RequestModels.Statistics
+namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
 {
-    public class DeleteStatisticsRequest
+    public class DeleteArchivedDataRequest
     {
         [Required]
         [CorrectId]
-        public int StatisticalModelId { get; set; }
+        public int CityId { get; set; }
     }
 }

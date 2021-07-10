@@ -2,30 +2,56 @@
 using System;
 using System.Threading.Tasks;
 using WeatherApplication.Domain.Interfaces;
-using WeatherApplication.Domain.Interfaces.RequestModels.City;
+using WeatherApplication.Domain.Interfaces.RequestModels.Statistics;
 
 namespace WeatherApplication.UserInterface.Api.Controllers
 {
     [Route("[controller]")]
-    public class CityController : Controller
+    public class StatisticsController : Controller
     {
-        private readonly ICityRepo repository;
+        private readonly IStatisticsRepo repository;
 
-        public CityController(ICityRepo repository)
+        public StatisticsController(IStatisticsRepo repository)
         {
             this.repository = repository;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult Get(GetCityRequest request)
+        public IActionResult GetCurrent(GetStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var city = repository.GetCity(request);
-                    return Ok(city);
+                    var statistics = repository.GetCurrentStatisticsOfCity(request);
+                    return Ok(statistics);
+                }
+                catch (ArgumentException)
+                {
+                    return NotFound();
+                }
+                catch (Exception)
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public IActionResult GetAllSaved(GetStatisticsRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var statistics = repository.GetAllStatisticalModelsOfCity(request);
+                    return Ok(statistics);
                 }
                 catch (ArgumentException)
                 {
@@ -44,13 +70,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Create(AddCityRequest request)
+        public async Task<IActionResult> Save(SaveStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await repository.AddCityAsync(request);
+                    await repository.SaveStatisticsOfCityAsync(request);
                     return Ok();
                 }
                 catch (ArgumentException)
@@ -70,13 +96,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpDelete]
         [Route("[action]")]
-        public async Task<IActionResult> Delete(DeleteCityRequest request)
+        public async Task<IActionResult> Delete(DeleteStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await repository.DeleteCityAsync(request);
+                    await repository.DeleteStatisticalModelAsync(request);
                     return Ok();
                 }
                 catch (ArgumentException)

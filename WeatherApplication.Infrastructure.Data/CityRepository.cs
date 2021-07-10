@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WeatherApplication.Domain.Core;
 using WeatherApplication.Domain.Interfaces;
 using WeatherApplication.Domain.Interfaces.RequestModels.City;
+using WeatherApplication.Domain.Interfaces.ResponseModels.City;
 
 namespace WeatherApplication.Infrastructure.Data
 {
@@ -38,10 +37,10 @@ namespace WeatherApplication.Infrastructure.Data
 
         public async Task DeleteCityAsync(DeleteCityRequest request)
         {
-            var cityToDelete = context.CityModels.SingleOrDefault(c => c.Id == request.CityId);
-            if (cityToDelete != null)
+            var city = context.CityModels.SingleOrDefault(c => c.Id == request.CityId);
+            if (city != null)
             {
-                context.CityModels.Remove(cityToDelete);
+                context.CityModels.Remove(city);
                 await context.SaveChangesAsync();
             }
             else
@@ -50,12 +49,12 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public CityModel GetCity(GetCityRequest request)
+        public GetCityResponse GetCity(GetCityRequest request)
         {
             var city = context.CityModels.SingleOrDefault(c => c.Id == request.CityId);
             if (city != null)
             {
-                return city;
+                return new GetCityResponse { CityName = city.CityName };
             }
             else
             {

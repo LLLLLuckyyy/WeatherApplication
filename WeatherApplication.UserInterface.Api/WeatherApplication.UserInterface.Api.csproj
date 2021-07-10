@@ -12,4 +12,8 @@
     <ProjectReference Include="..\WeatherApplication.Infrastructure.Data\WeatherApplication.Infrastructure.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

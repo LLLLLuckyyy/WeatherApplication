@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace WeatherApplication.Domain.Core
 {
+    //Statistical model of certain city
     public class StatisticalModel
     {
         [Key]
@@ -16,8 +15,12 @@ namespace WeatherApplication.Domain.Core
         [Required]
         public double AverageTemperature { get; set; }
         [Required]
-        public double TemperatureAtTheRequestTime { get; set; }
+        public string TemperatureAtTheCurrentTime { get; set; }
+        [Required]
+        public DateTime DateStatisticsCreated { get; set; }
 
-        public int CityId { get; set; }
+        
+        public int? CityModelId { get; set; }
+        public CityModel CityModel { get; set; }
     }
 }
