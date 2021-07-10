@@ -15,6 +15,11 @@ namespace WeatherApplication.Infrastructure.Data.WorkWithFiles
             string folderPath = webRootPath + "/Files";
             string filePath = folderPath + $"/{cityName}.json";
 
+            if (!Directory.Exists(webRootPath))
+            {
+                Directory.CreateDirectory(webRootPath);
+            }
+
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
