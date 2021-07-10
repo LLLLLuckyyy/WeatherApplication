@@ -26,9 +26,9 @@ namespace WeatherApplication.Infrastructure.Data
             this.memoryCache = memoryCache;
         }
 
-        public GetStatisticsWithCurrentTemperatureResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request)
+        public GetStatisticsWithCurrentConditionsResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request)
         {
-            GetStatisticsWithCurrentTemperatureResponse response = null;
+            GetStatisticsWithCurrentConditionsResponse response = null;
 
             //Checks memory cache for fit value
             if (memoryCache.TryGetValue(request.CityId, out response))
@@ -43,13 +43,21 @@ namespace WeatherApplication.Infrastructure.Data
 
             if (weatherHistory != null && city != null)
             {
-                response = new GetStatisticsWithCurrentTemperatureResponse
+                response = new GetStatisticsWithCurrentConditionsResponse
                 {
                     CityName = city.CityName,
                     AverageTemperature = TemperatureCalculus.GetAverageTemperature(weatherHistory),
                     MinTemperature = TemperatureCalculus.GetMinTemperature(weatherHistory),
                     MaxTemperature = TemperatureCalculus.GetMaxTemperature(weatherHistory),
-                    TemperatureAtTheCurrentTime = TemperatureCalculus.GetCurrentTemperature(weatherHistory)
+                    CurrentTemperature = TemperatureCalculus.GetCurrentTemperature(weatherHistory),
+                    AverageRainProbability = RainProbability.GetAverageRainProbability(weatherHistory),
+                    MinRainProbability = RainProbability.GetMinRainProbability(weatherHistory),
+                    MaxRainProbability = RainProbability.GetMaxRainProbability(weatherHistory),
+                    CurrentRainProbability = RainProbability.GetCurrentRainProbability(weatherHistory),
+                    AverageWindForce = WindForceCalculus.GetAverageWindForce(weatherHistory),
+                    MinWindForce = WindForceCalculus.GetMinWindForce(weatherHistory),
+                    MaxWindForce = WindForceCalculus.GetMaxWindForce(weatherHistory),
+                    CurrentWindForce = WindForceCalculus.GetCurrentWindForce(weatherHistory)
                 };
 
                 //Sets new cache for 2 min.
@@ -91,13 +99,21 @@ namespace WeatherApplication.Infrastructure.Data
                     AverageTemperature = TemperatureCalculus.GetAverageTemperature(weatherHistory),
                     MinTemperature = TemperatureCalculus.GetMinTemperature(weatherHistory),
                     MaxTemperature = TemperatureCalculus.GetMaxTemperature(weatherHistory),
-                    TemperatureAtTheCurrentTime = TemperatureCalculus.GetCurrentTemperature(weatherHistory),
+                    CurrentTemperature = TemperatureCalculus.GetCurrentTemperature(weatherHistory),
+                    AverageRainProbability = RainProbability.GetAverageRainProbability(weatherHistory),
+                    MinRainProbability = RainProbability.GetMinRainProbability(weatherHistory),
+                    MaxRainProbability = RainProbability.GetMaxRainProbability(weatherHistory),
+                    CurrentRainProbability = RainProbability.GetCurrentRainProbability(weatherHistory),
+                    AverageWindForce = WindForceCalculus.GetAverageWindForce(weatherHistory),
+                    MinWindForce = WindForceCalculus.GetMinWindForce(weatherHistory),
+                    MaxWindForce = WindForceCalculus.GetMaxWindForce(weatherHistory),
+                    CurrentWindForce = WindForceCalculus.GetCurrentWindForce(weatherHistory),
                     CityModelId = request.CityId,
                     DateStatisticsCreated = DateTime.Now
                 };
 
                 //Sets new cache for 2 min. with every save request
-                var cachingValue = mapper.Map<GetStatisticsWithCurrentTemperatureResponse>(statistics);
+                var cachingValue = mapper.Map<GetStatisticsWithCurrentConditionsResponse>(statistics);
                 cachingValue.CityName = context.CityModels.SingleOrDefault(c => c.Id == request.CityId).CityName;
                 CacheOperations.SetCache(memoryCache, request.CityId, cachingValue, 2);
 

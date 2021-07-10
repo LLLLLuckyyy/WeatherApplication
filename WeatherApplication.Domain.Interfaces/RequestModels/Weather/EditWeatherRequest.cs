@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
 namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
 {
@@ -8,6 +7,11 @@ namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
     {
         [Required]
         public double TemperatureInCelsius { get; set; }
+        [Required]
+        public double RainProbability { get; set; }
+        [Required]
+        public double WindForce { get; set; }
+
         [Required]
         public DateTime ObservationTime { get; set; }
     }

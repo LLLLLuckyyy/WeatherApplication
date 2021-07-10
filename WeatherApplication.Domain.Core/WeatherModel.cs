@@ -11,6 +11,10 @@ namespace WeatherApplication.Domain.Core
         [Required]
         public double Temperature { get; set; }
         [Required]
+        public double RainProbability { get; set; }
+        [Required]
+        public double WindForce { get; set; }
+        [Required]
         public DateTime ObservationTime { get; set; }
         [Required]
         public bool IsArchived { get; set; }

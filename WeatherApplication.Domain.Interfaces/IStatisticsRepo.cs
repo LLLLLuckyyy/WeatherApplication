@@ -9,7 +9,7 @@ namespace WeatherApplication.Domain.Interfaces
     {
         //Returns statistics of certain city with current temperature
         //from cache if exists or creates response and put it in cache
-        GetStatisticsWithCurrentTemperatureResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request);
+        GetStatisticsWithCurrentConditionsResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request);
 
         //Returns all statistical models of certain city from database
         List<GetAllStatisticsResponse> GetAllStatisticalModelsOfCity(GetStatisticsRequest request);

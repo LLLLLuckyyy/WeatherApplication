@@ -10,7 +10,7 @@ namespace WeatherApplication.Infrastructure.Data.WorkWithFiles
     public static class FileOperations
     {
         //Creates CityName.json file in webRootPath/Files
-        public static async Task CreateAndFillFileAsync(string webRootPath, string cityName, IEnumerable<GetWeatherHistoryResponse> response)
+        public static async Task CreateFileAsync(string webRootPath, string cityName, IEnumerable<GetWeatherHistoryResponse> response)
         {
             string folderPath = webRootPath + "/Files";
             string filePath = folderPath + $"/{cityName}.json";
@@ -38,11 +38,11 @@ namespace WeatherApplication.Infrastructure.Data.WorkWithFiles
         public static void CompressFile(string webRootPath)
         {
             string sourceDirectory = webRootPath + "/Files";
-            string filePath = webRootPath + "/ArchivedData.zip";
+            string zipFilePath = webRootPath + "/ArchivedData.zip";
 
-            File.Delete(filePath);
+            File.Delete(zipFilePath);
 
-            ZipFile.CreateFromDirectory(sourceDirectory, filePath, CompressionLevel.Optimal, false);
+            ZipFile.CreateFromDirectory(sourceDirectory, zipFilePath, CompressionLevel.Optimal, false);
         }
 
         //Deletes CityName.json file
@@ -52,7 +52,6 @@ namespace WeatherApplication.Infrastructure.Data.WorkWithFiles
             string filePath = folderPath + $"/{cityName}.json";
 
             File.Delete(filePath);
-            CompressFile(webRootPath);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace WeatherApplication.Infrastructure.Data.Caching
 {
     public static class CacheOperations
     {
-        public static void SetCache(IMemoryCache cache, int key, GetStatisticsWithCurrentTemperatureResponse cachingValue, int minutes)
+        public static void SetCache(IMemoryCache cache, int key, GetStatisticsWithCurrentConditionsResponse cachingValue, int minutes)
         {
             cache.Set(key, cachingValue, new MemoryCacheEntryOptions
             {

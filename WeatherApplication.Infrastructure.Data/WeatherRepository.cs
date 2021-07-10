@@ -52,7 +52,9 @@ namespace WeatherApplication.Infrastructure.Data
                 .Select(wm => new GetWeatherHistoryResponse
                 {
                     IdOfWeatherModel = wm.Id,
-                    TemperatureWithTimeStamp = wm.Temperature.ToString() + " (" + wm.ObservationTime.ToString("yyyy/MM/dd hh:mm") + ")"
+                    TemperatureWithTimeStamp = wm.Temperature.ToString() + " (" + wm.ObservationTime.ToString("yyyy/MM/dd hh:mm") + ")",
+                    RainProbability = wm.RainProbability,
+                    WindForce = wm.WindForce
                 });
 
             if (convertedWeatherHistory != null && city != null)
@@ -60,7 +62,7 @@ namespace WeatherApplication.Infrastructure.Data
                 string cityName = city.CityName;
 
                 //Creates file in webRootPath/Files
-                await FileOperations.CreateAndFillFileAsync(folder.Path, cityName, convertedWeatherHistory);
+                await FileOperations.CreateFileAsync(folder.Path, cityName, convertedWeatherHistory);
 
                 //Archives files from webRootPath/Files
                 FileOperations.CompressFile(folder.Path);
@@ -91,7 +93,7 @@ namespace WeatherApplication.Infrastructure.Data
                 //Deletes CityName.json file in webRootPath
                 //and updates DrchivedData.zip file
                 FileOperations.DeleteArchivedDataOfCity(folder.Path, cityName);
-
+                FileOperations.CompressFile(folder.Path);
                 //Marks sertain weather models as not archived
                 await OperationsWithIsArchivedProperty.SetIsArchivedFalseAndSaveChanges(weatherHistory, context);
             }
@@ -125,6 +127,9 @@ namespace WeatherApplication.Infrastructure.Data
             if (weatherModel != null)
             {
                 weatherModel.Temperature = request.TemperatureInCelsius;
+                weatherModel.RainProbability = request.RainProbability;
+                weatherModel.WindForce = request.WindForce;
+
                 await context.SaveChangesAsync();
             }
             else
@@ -142,10 +147,12 @@ namespace WeatherApplication.Infrastructure.Data
             if (weatherHistory != null && city != null)
             {
                 //Converts weather history to response type
-                var response = weatherHistory.Select(r => new GetWeatherHistoryResponse
+                var response = weatherHistory.Select(wm => new GetWeatherHistoryResponse
                 {
-                    IdOfWeatherModel = r.Id,
-                    TemperatureWithTimeStamp = r.Temperature.ToString() + " (" + r.ObservationTime.ToString("yyyy/MM/dd hh:mm") + ")"
+                    IdOfWeatherModel = wm.Id,
+                    TemperatureWithTimeStamp = wm.Temperature.ToString() + " (" + wm.ObservationTime.ToString("yyyy/MM/dd hh:mm") + ")",
+                    RainProbability = wm.RainProbability,
+                    WindForce = wm.WindForce
                 });
 
                 return response;
