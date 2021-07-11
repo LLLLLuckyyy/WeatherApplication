@@ -16,6 +16,7 @@ What was done:
 - Application should be possible to launch from Visual Studio in a one click with only change of DB connection string. Seed data should be populated by application so no need to run extra sql script is required. The only place where I indicated a connection string is appsettings file.
 - Returns of controller according to Microsoft guidelines. I picked long controller names to make it more understandable. Also added little comments.
 - In addition to the task, added additional methods.
+- Added pull request from implementation to (default) master branch.
 - Completed in 3 working days.
 
 What was not done:
