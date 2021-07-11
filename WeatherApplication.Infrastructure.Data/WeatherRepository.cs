@@ -99,8 +99,22 @@ namespace WeatherApplication.Infrastructure.Data
 
         public async Task DeleteWeatherAtCertainTimeAsync(DeleteWeatherRequest request)
         {
-            var weatherModel = context.WeatherModels.ToList()
-                .LastOrDefault(wm => (wm.ObservationTime - request.ObservationTime).TotalMinutes < 15);
+            var weatherModel = context.WeatherModels.Where(wm => wm.CityModelId == request.CityId).ToList()
+                .LastOrDefault(wm => 
+                {
+                    bool result;
+                    //For right operation (greater - lower)
+                    if (request.ObservationTime > wm.ObservationTime)
+                    {
+                        result = request.ObservationTime.Subtract(wm.ObservationTime).TotalMinutes < 15;
+                        return result; 
+                    }
+                    else
+                    {
+                        result = wm.ObservationTime.Subtract(request.ObservationTime).TotalMinutes < 15;
+                        return result;
+                    }
+                });
 
             if (weatherModel != null)
             {
@@ -115,8 +129,22 @@ namespace WeatherApplication.Infrastructure.Data
 
         public async Task EditWeatherAtCertainTimeAsync(EditWeatherRequest request)
         {
-            var weatherModel = context.WeatherModels.ToList()
-                .LastOrDefault(wm => (wm.ObservationTime - request.ObservationTime).TotalMinutes < 15);
+            var weatherModel = context.WeatherModels.Where(wm => wm.CityModelId == request.CityId).ToList()
+                .LastOrDefault(wm => 
+                {
+                    bool result;
+                    //For right operation (greater - lower)
+                    if (request.ObservationTime > wm.ObservationTime)
+                    {
+                        result = request.ObservationTime.Subtract(wm.ObservationTime).TotalMinutes < 15;
+                        return result;
+                    }
+                    else
+                    {
+                        result = wm.ObservationTime.Subtract(request.ObservationTime).TotalMinutes < 15;
+                        return result;
+                    }
+                });
 
             if (weatherModel != null)
             {
