@@ -23,13 +23,15 @@ What was not done:
 - Temperature in Celsius degrees with timestamp in database. In models I set separate properties.
 
 Aspects of program:
-The program is seedind database. During application start database sets:
+The program is seeding database. During application start database sets:
 - Cities: Kyiv (CityId = 1), Kharkiv (CityId = 2), Odessa (CityId = 3). All cities have AllowedNumberOfStatisticalModels = 3.
 - Weather models (6 items for each city).
 5 items have date from 2021/07/05 to 2021/07/07 (inclusive both) and 1 item has DateTime.Now date to check current conditions.
 
 Questions:
-- Is it better to create request/response class model with only one property or not create class and leave method with such parameter?
-- Is it good to make try/catch in controller class in order to reduce addiction?
+- Is it better to create request/response class model with only one property or not create class and leave method with simple parameter?
+- Is it good to make try/catch in controller class in order to reduce dependency with repository class?
 
-Thank you for attention and interesting task.
+Will be glad to hear any recommendations/ideas regarding this project)
+
+Thank you for attention and interesting task)
