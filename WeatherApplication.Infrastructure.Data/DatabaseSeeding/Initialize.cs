@@ -11,11 +11,11 @@ namespace WeatherApplication.Infrastructure.Data.DatabaseSeeding
         {
             if (!context.CityModels.Any() && !context.WeatherModels.Any())
             {
-                var kharkiv = new CityModel { CityName = "Kharkiv" };
                 var kyiv = new CityModel { CityName = "Kyiv" };
+                var kharkiv = new CityModel { CityName = "Kharkiv" };
                 var odessa = new CityModel { CityName = "Odessa" };
 
-                context.CityModels.AddRange(kharkiv, kyiv, odessa);
+                context.CityModels.AddRange(kyiv, kharkiv, odessa);
                 context.SaveChanges();
 
                 var kyivWeather1 = new WeatherModel 
@@ -57,6 +57,14 @@ namespace WeatherApplication.Infrastructure.Data.DatabaseSeeding
                     ObservationTime = new DateTime(2021, 7, 6, 16, 10, 0),
                     WindForce = 7,
                     RainProbability = 70
+                };
+                var kyivWeather6 = new WeatherModel
+                {
+                    CityModelId = 1,
+                    Temperature = 30,
+                    ObservationTime = DateTime.Now,
+                    WindForce = 2,
+                    RainProbability = 13
                 };
 
 
@@ -101,6 +109,14 @@ namespace WeatherApplication.Infrastructure.Data.DatabaseSeeding
                     WindForce = 9,
                     RainProbability = 56
                 };
+                var kharkivWeather6 = new WeatherModel
+                {
+                    CityModelId = 2,
+                    Temperature = 28,
+                    ObservationTime = DateTime.Now,
+                    WindForce = 3,
+                    RainProbability = 10
+                };
 
 
 
@@ -144,10 +160,18 @@ namespace WeatherApplication.Infrastructure.Data.DatabaseSeeding
                     WindForce = 12,
                     RainProbability = 66
                 };
+                var odessaWeather6 = new WeatherModel
+                {
+                    CityModelId = 3,
+                    Temperature = 33,
+                    ObservationTime = DateTime.Now,
+                    WindForce = 7,
+                    RainProbability = 23
+                };
 
-                context.WeatherModels.AddRange(kyivWeather1, kyivWeather2, kyivWeather3, kyivWeather4, kyivWeather5);
-                context.WeatherModels.AddRange(kharkivWeather1, kharkivWeather2, kharkivWeather3, kharkivWeather4, kharkivWeather5);
-                context.WeatherModels.AddRange(odessaWeather1, odessaWeather2, odessaWeather3, odessaWeather4, odessaWeather5);
+                context.WeatherModels.AddRange(kyivWeather1, kyivWeather2, kyivWeather3, kyivWeather4, kyivWeather5, kyivWeather6);
+                context.WeatherModels.AddRange(kharkivWeather1, kharkivWeather2, kharkivWeather3, kharkivWeather4, kharkivWeather5, kharkivWeather6);
+                context.WeatherModels.AddRange(odessaWeather1, odessaWeather2, odessaWeather3, odessaWeather4, odessaWeather5, odessaWeather6);
                 context.SaveChanges();
             }
         }

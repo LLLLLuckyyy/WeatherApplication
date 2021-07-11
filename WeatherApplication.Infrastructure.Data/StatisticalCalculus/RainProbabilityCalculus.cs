@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WeatherApplication.Domain.Core;
 
 namespace WeatherApplication.Infrastructure.Data.StatisticalCalculus
 {
-    public class RainProbability
+    public class RainProbabilityCalculus
     {
+        //Calculates rain probability values
+        //For correct calculation you must pass weather models with same CityId
         public static double GetMinRainProbability(IQueryable<WeatherModel> weatherHistory)
         {
             var minRainProbability = GetRainProbability(weatherHistory).Min();

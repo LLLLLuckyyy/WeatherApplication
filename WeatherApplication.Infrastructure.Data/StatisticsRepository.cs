@@ -26,7 +26,7 @@ namespace WeatherApplication.Infrastructure.Data
             this.memoryCache = memoryCache;
         }
 
-        public GetStatisticsWithCurrentConditionsResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request)
+        public GetStatisticsWithCurrentConditionsResponse GetStatisticsAndCurrentConditions(GetStatisticsRequest request)
         {
             GetStatisticsWithCurrentConditionsResponse response = null;
 
@@ -50,10 +50,10 @@ namespace WeatherApplication.Infrastructure.Data
                     MinTemperature = TemperatureCalculus.GetMinTemperature(weatherHistory),
                     MaxTemperature = TemperatureCalculus.GetMaxTemperature(weatherHistory),
                     CurrentTemperature = TemperatureCalculus.GetCurrentTemperature(weatherHistory),
-                    AverageRainProbability = RainProbability.GetAverageRainProbability(weatherHistory),
-                    MinRainProbability = RainProbability.GetMinRainProbability(weatherHistory),
-                    MaxRainProbability = RainProbability.GetMaxRainProbability(weatherHistory),
-                    CurrentRainProbability = RainProbability.GetCurrentRainProbability(weatherHistory),
+                    AverageRainProbability = RainProbabilityCalculus.GetAverageRainProbability(weatherHistory),
+                    MinRainProbability = RainProbabilityCalculus.GetMinRainProbability(weatherHistory),
+                    MaxRainProbability = RainProbabilityCalculus.GetMaxRainProbability(weatherHistory),
+                    CurrentRainProbability = RainProbabilityCalculus.GetCurrentRainProbability(weatherHistory),
                     AverageWindForce = WindForceCalculus.GetAverageWindForce(weatherHistory),
                     MinWindForce = WindForceCalculus.GetMinWindForce(weatherHistory),
                     MaxWindForce = WindForceCalculus.GetMaxWindForce(weatherHistory),
@@ -87,7 +87,7 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public async Task SaveStatisticsAndCurrentTemperatureAsync(SaveStatisticsRequest request)
+        public async Task SaveStatisticsAndCurrentConditionsAsync(SaveStatisticsRequest request)
         {
             //Gets not archived weather models of certain city
             var weatherHistory = context.WeatherModels.Where(wm => wm.CityModelId == request.CityId && wm.IsArchived == false);
@@ -100,10 +100,10 @@ namespace WeatherApplication.Infrastructure.Data
                     MinTemperature = TemperatureCalculus.GetMinTemperature(weatherHistory),
                     MaxTemperature = TemperatureCalculus.GetMaxTemperature(weatherHistory),
                     CurrentTemperature = TemperatureCalculus.GetCurrentTemperature(weatherHistory),
-                    AverageRainProbability = RainProbability.GetAverageRainProbability(weatherHistory),
-                    MinRainProbability = RainProbability.GetMinRainProbability(weatherHistory),
-                    MaxRainProbability = RainProbability.GetMaxRainProbability(weatherHistory),
-                    CurrentRainProbability = RainProbability.GetCurrentRainProbability(weatherHistory),
+                    AverageRainProbability = RainProbabilityCalculus.GetAverageRainProbability(weatherHistory),
+                    MinRainProbability = RainProbabilityCalculus.GetMinRainProbability(weatherHistory),
+                    MaxRainProbability = RainProbabilityCalculus.GetMaxRainProbability(weatherHistory),
+                    CurrentRainProbability = RainProbabilityCalculus.GetCurrentRainProbability(weatherHistory),
                     AverageWindForce = WindForceCalculus.GetAverageWindForce(weatherHistory),
                     MinWindForce = WindForceCalculus.GetMinWindForce(weatherHistory),
                     MaxWindForce = WindForceCalculus.GetMaxWindForce(weatherHistory),

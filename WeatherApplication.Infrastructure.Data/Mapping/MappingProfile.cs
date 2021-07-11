@@ -3,6 +3,7 @@ using WeatherApplication.Domain.Core;
 using WeatherApplication.Domain.Interfaces.RequestModels.City;
 using WeatherApplication.Domain.Interfaces.RequestModels.Weather;
 using WeatherApplication.Domain.Interfaces.ResponseModels.Statistics;
+using WeatherApplication.Domain.Interfaces.ResponseModels.Weather;
 
 namespace WeatherApplication.Infrastructure.Data.Mapping
 {
@@ -47,6 +48,13 @@ namespace WeatherApplication.Infrastructure.Data.Mapping
                 .ForMember(dest => dest.MinWindForce, opt => opt.MapFrom(src => src.MinWindForce))
                 .ForMember(dest => dest.AverageWindForce, opt => opt.MapFrom(src => src.AverageWindForce))
                 .ForMember(dest => dest.CurrentWindForce, opt => opt.MapFrom(src => src.CurrentWindForce));
+
+            CreateMap<WeatherModel, GetWeatherHistoryResponse>()
+                .ForMember(dest => dest.IdOfWeatherModel, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Temperature, opt => opt.MapFrom(src => src.Temperature))
+                .ForMember(dest => dest.RainProbability, opt => opt.MapFrom(src => src.RainProbability))
+                .ForMember(dest => dest.WindForce, opt => opt.MapFrom(src => src.WindForce))
+                .ForMember(dest => dest.DateObservation, opt => opt.MapFrom(src => src.ObservationTime.ToString("yyyy/MM/dd hh:ss")));
         }
     }
 }

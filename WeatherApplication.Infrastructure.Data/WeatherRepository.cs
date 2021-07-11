@@ -49,13 +49,7 @@ namespace WeatherApplication.Infrastructure.Data
 
             //Converts weather history to response type
             var convertedWeatherHistory = weatherHistory
-                .Select(wm => new GetWeatherHistoryResponse
-                {
-                    IdOfWeatherModel = wm.Id,
-                    TemperatureWithTimeStamp = wm.Temperature.ToString() + " (" + wm.ObservationTime.ToString("yyyy/MM/dd hh:mm") + ")",
-                    RainProbability = wm.RainProbability,
-                    WindForce = wm.WindForce
-                });
+                .Select(wm => mapper.Map<GetWeatherHistoryResponse>(wm));
 
             if (convertedWeatherHistory != null && city != null)
             {
@@ -147,13 +141,7 @@ namespace WeatherApplication.Infrastructure.Data
             if (weatherHistory != null && city != null)
             {
                 //Converts weather history to response type
-                var response = weatherHistory.Select(wm => new GetWeatherHistoryResponse
-                {
-                    IdOfWeatherModel = wm.Id,
-                    TemperatureWithTimeStamp = wm.Temperature.ToString() + " (" + wm.ObservationTime.ToString("yyyy/MM/dd hh:mm") + ")",
-                    RainProbability = wm.RainProbability,
-                    WindForce = wm.WindForce
-                });
+                var response = weatherHistory.Select(wm => mapper.Map<GetWeatherHistoryResponse>(wm));
 
                 return response;
             }

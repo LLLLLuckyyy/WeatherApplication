@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WeatherApplication.Domain.Core;
 
 namespace WeatherApplication.Infrastructure.Data.StatisticalCalculus
 {
+    //Calculates wind force values
+    //For correct calculation you must pass weather models with same CityId
     public class WindForceCalculus
     {
         public static double GetMinWindForce(IQueryable<WeatherModel> weatherHistory)
