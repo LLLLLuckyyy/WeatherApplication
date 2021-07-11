@@ -9,5 +9,8 @@ namespace WeatherApplication.Domain.Interfaces.RequestModels.City
     {
         [Required]
         public string CityName { get; set; }
+        [Required]
+        [Range(1, 10)]
+        public int NumberOfAllowedStatisticalModels { get; set; }
     }
 }

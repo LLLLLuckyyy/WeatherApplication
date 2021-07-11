@@ -11,9 +11,9 @@ namespace WeatherApplication.Infrastructure.Data.DatabaseSeeding
         {
             if (!context.CityModels.Any() && !context.WeatherModels.Any())
             {
-                var kyiv = new CityModel { CityName = "Kyiv" };
-                var kharkiv = new CityModel { CityName = "Kharkiv" };
-                var odessa = new CityModel { CityName = "Odessa" };
+                var kyiv = new CityModel { CityName = "Kyiv", NumberOfAllowedStatisticalModels = 3 };
+                var kharkiv = new CityModel { CityName = "Kharkiv", NumberOfAllowedStatisticalModels = 3 };
+                var odessa = new CityModel { CityName = "Odessa", NumberOfAllowedStatisticalModels = 3 };
 
                 context.CityModels.AddRange(kyiv, kharkiv, odessa);
                 context.SaveChanges();

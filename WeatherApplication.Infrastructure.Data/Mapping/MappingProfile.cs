@@ -2,6 +2,7 @@
 using WeatherApplication.Domain.Core;
 using WeatherApplication.Domain.Interfaces.RequestModels.City;
 using WeatherApplication.Domain.Interfaces.RequestModels.Weather;
+using WeatherApplication.Domain.Interfaces.ResponseModels.City;
 using WeatherApplication.Domain.Interfaces.ResponseModels.Statistics;
 using WeatherApplication.Domain.Interfaces.ResponseModels.Weather;
 
@@ -13,7 +14,12 @@ namespace WeatherApplication.Infrastructure.Data.Mapping
         public MappingProfile()
         {
             CreateMap<AddCityRequest, CityModel>()
-                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.CityName));
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.CityName))
+                .ForMember(dest => dest.NumberOfAllowedStatisticalModels, opt => opt.MapFrom(src => src.NumberOfAllowedStatisticalModels));
+
+            CreateMap<CityModel, GetCityResponse>()
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.CityName))
+                .ForMember(dest => dest.NumberOfAllowedStatisticalModels, opt => opt.MapFrom(src => src.NumberOfAllowedStatisticalModels));
 
             CreateMap<AddWeatherRequest, WeatherModel>()
                 .ForMember(dest => dest.CityModelId, opt => opt.MapFrom(src => src.CityId))

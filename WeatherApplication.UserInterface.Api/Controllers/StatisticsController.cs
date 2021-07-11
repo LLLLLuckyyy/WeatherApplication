@@ -103,7 +103,7 @@ namespace WeatherApplication.UserInterface.Api.Controllers
                 try
                 {
                     await repository.DeleteStatisticalModelAsync(request);
-                    return Ok();
+                    return NoContent();
                 }
                 catch (ArgumentException)
                 {

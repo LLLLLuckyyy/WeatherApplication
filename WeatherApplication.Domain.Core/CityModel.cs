@@ -11,8 +11,10 @@ namespace WeatherApplication.Domain.Core
         public int Id { get; set; }
         [Required]
         public string CityName { get; set; }
+        [Required]
+        [Range(1, 10)]
+        public int NumberOfAllowedStatisticalModels { get; set; }
 
-        
         public List<StatisticalModel> Statistics { get; set; }
         
         public List<WeatherModel> WeatherHistory { get; set; }

@@ -54,7 +54,8 @@ namespace WeatherApplication.Infrastructure.Data
             var city = context.CityModels.SingleOrDefault(c => c.Id == request.CityId);
             if (city != null)
             {
-                return new GetCityResponse { CityName = city.CityName };
+                var response = mapper.Map<GetCityResponse>(city);
+                return response;
             }
             else
             {

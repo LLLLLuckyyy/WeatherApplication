@@ -89,11 +89,20 @@ namespace WeatherApplication.Infrastructure.Data
 
         public async Task SaveStatisticsAndCurrentConditionsAsync(SaveStatisticsRequest request)
         {
+            var city = context.CityModels.SingleOrDefault(c => c.Id == request.CityId);
             //Gets not archived weather models of certain city
             var weatherHistory = context.WeatherModels.Where(wm => wm.CityModelId == request.CityId && wm.IsArchived == false);
+            //Gets statistical models of certain city
+            var statisticalModels = context.StatisticalModels.Where(s => s.CityModelId == request.CityId);
 
-            if (weatherHistory != null)
+            if (weatherHistory != null && city != null && statisticalModels != null)
             {
+                //Checks for allowed number of statistical models
+                if (statisticalModels.Count() >= city.NumberOfAllowedStatisticalModels)
+                {
+                    throw new Exception();
+                }
+
                 var statistics = new StatisticalModel
                 {
                     AverageTemperature = TemperatureCalculus.GetAverageTemperature(weatherHistory),

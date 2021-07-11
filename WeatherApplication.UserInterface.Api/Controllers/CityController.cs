@@ -77,7 +77,7 @@ namespace WeatherApplication.UserInterface.Api.Controllers
                 try
                 {
                     await repository.DeleteCityAsync(request);
-                    return Ok();
+                    return NoContent();
                 }
                 catch (ArgumentException)
                 {

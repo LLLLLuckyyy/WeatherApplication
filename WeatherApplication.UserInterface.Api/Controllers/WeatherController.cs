@@ -103,7 +103,7 @@ namespace WeatherApplication.UserInterface.Api.Controllers
                 try
                 {
                     await repository.DeleteWeatherAtCertainTimeAsync(request);
-                    return Ok();
+                    return NoContent();
                 }
                 catch (ArgumentException)
                 {
@@ -155,7 +155,7 @@ namespace WeatherApplication.UserInterface.Api.Controllers
                 try
                 {
                     repository.DeleteAllArchivedWeatherInfoOfCityAsync(request);
-                    return Ok();
+                    return NoContent();
                 }
                 catch (ArgumentException)
                 {
