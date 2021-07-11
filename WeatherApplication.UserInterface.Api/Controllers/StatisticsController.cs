@@ -18,13 +18,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetStatisticsAndCurrentTemperatureInCity(GetStatisticsRequest request)
+        public IActionResult GetStatisticsAndCurrentConditionsInCityFromCacheOrCalculateAndSetCache(GetStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var statistics = repository.GetStatisticsAndCurrentTemperature(request);
+                    var statistics = repository.GetStatisticsAndCurrentConditions(request);
                     return Ok(statistics);
                 }
                 catch (ArgumentException)
@@ -70,13 +70,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> SaveStatisticsAndCurrentTemperatureInCity(SaveStatisticsRequest request)
+        public async Task<IActionResult> SaveStatisticsAndCurrentConditionsInCityAndCacheIt(SaveStatisticsRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await repository.SaveStatisticsAndCurrentTemperatureAsync(request);
+                    await repository.SaveStatisticsAndCurrentConditionsAsync(request);
                     return Ok();
                 }
                 catch (ArgumentException)
