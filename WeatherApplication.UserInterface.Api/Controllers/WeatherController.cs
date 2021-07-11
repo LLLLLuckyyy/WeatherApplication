@@ -70,13 +70,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> EditWeatherModelAtCurrentTime(EditWeatherRequest request)
+        public async Task<IActionResult> EditWeatherModelAtCertainTime(EditWeatherRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await repository.EditWeatherAtCurrentTimeAsync(request);
+                    await repository.EditWeatherAtCertainTimeAsync(request);
                     return Ok();
                 }
                 catch (ArgumentException)
@@ -96,13 +96,13 @@ namespace WeatherApplication.UserInterface.Api.Controllers
 
         [HttpDelete]
         [Route("[action]")]
-        public async Task<IActionResult> DeleteWeatherModelAtCurrentTime(DeleteWeatherRequest request)
+        public async Task<IActionResult> DeleteWeatherModelAtCertainTime(DeleteWeatherRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await repository.DeleteWeatherAtCurrentTimeAsync(request);
+                    await repository.DeleteWeatherAtCertainTimeAsync(request);
                     return Ok();
                 }
                 catch (ArgumentException)
