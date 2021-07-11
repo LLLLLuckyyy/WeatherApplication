@@ -8,5 +8,8 @@ namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
     {
         [Required]
         public DateTime ObservationTime { get; set; }
+        [Required]
+        [CorrectId]
+        public int CityId { get; set; }
     }
 }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WeatherApplication.Domain.Interfaces.ValidationAttributes;
 
 namespace WeatherApplication.Domain.Interfaces.RequestModels.Weather
 {
     public class EditWeatherRequest
     {
+        [Required]
+        [CorrectId]
+        public int CityId { get; set; }
         [Required]
         [Range(-50, 50)]
         public double TemperatureInCelsius { get; set; }
