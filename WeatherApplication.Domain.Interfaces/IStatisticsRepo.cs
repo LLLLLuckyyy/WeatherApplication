@@ -9,13 +9,13 @@ namespace WeatherApplication.Domain.Interfaces
     {
         //Returns statistics of certain city with current temperature
         //from cache if exists or creates response and put it in cache
-        GetStatisticsWithCurrentConditionsResponse GetStatisticsAndCurrentTemperature(GetStatisticsRequest request);
+        GetStatisticsWithCurrentConditionsResponse GetStatisticsAndCurrentConditions(GetStatisticsRequest request);
 
         //Returns all statistical models of certain city from database
         List<GetAllStatisticsResponse> GetAllStatisticalModelsOfCity(GetStatisticsRequest request);
 
         //Saves statistics of certain city to database and caches it
-        Task SaveStatisticsAndCurrentTemperatureAsync(SaveStatisticsRequest request);
+        Task SaveStatisticsAndCurrentConditionsAsync(SaveStatisticsRequest request);
 
         //Deletes statistical model from database by Id
         Task DeleteStatisticalModelAsync(DeleteStatisticsRequest request);

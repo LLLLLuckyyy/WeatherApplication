@@ -10,7 +10,7 @@ namespace WeatherApplication.Domain.Interfaces
         //Adds weather model to database
         Task AddWeatherAsync(AddWeatherRequest request);
 
-        //Edits certain weather model in database
+        //Edits certain weather model in database by date observation
         Task EditWeatherAtCurrentTimeAsync(EditWeatherRequest request);
 
         //Creates CityName.json file in webRootPath/Files
@@ -25,7 +25,7 @@ namespace WeatherApplication.Domain.Interfaces
         //(list of weather model Id and temperature with timestamp)
         IEnumerable<GetWeatherHistoryResponse> GetWeatherHistoryOfCity(GetWeatherHistoryRequest request);
 
-        //Deletes weather model from database
+        //Deletes weather model from database by date observation
         Task DeleteWeatherAtCurrentTimeAsync(DeleteWeatherRequest request);
     }
 }
