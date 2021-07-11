@@ -28,7 +28,9 @@ The program is seedind database. During application start database sets:
 5 items have date from 2021/07/05 to 2021/07/07 (inclusive both) and 1 item has DateTime.Now date to check current conditions.
 
 Questions:
-- Is it better to create request/response class model with only one property or not create class and leave method with such parameter?
-- Is it good to make try/catch in controller class in order to reduce addiction?
+- Is it better to create request/response class model with only one property or not create class and leave method with simple parameter?
+- Is it good to make try/catch in controller class in order to reduce dependency with repository class?
 
-Thank you for attention and interesting task.
+Will be glad to hear any recommendations/ideas regarding this project)
+
+Thank you for attention and interesting task)
