@@ -97,7 +97,7 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public async Task DeleteWeatherAtCurrentTimeAsync(DeleteWeatherRequest request)
+        public async Task DeleteWeatherAtCertainTimeAsync(DeleteWeatherRequest request)
         {
             var weatherModel = context.WeatherModels.ToList()
                 .LastOrDefault(wm => (wm.ObservationTime - request.ObservationTime).TotalMinutes < 15);
@@ -113,7 +113,7 @@ namespace WeatherApplication.Infrastructure.Data
             }
         }
 
-        public async Task EditWeatherAtCurrentTimeAsync(EditWeatherRequest request)
+        public async Task EditWeatherAtCertainTimeAsync(EditWeatherRequest request)
         {
             var weatherModel = context.WeatherModels.ToList()
                 .LastOrDefault(wm => (wm.ObservationTime - request.ObservationTime).TotalMinutes < 15);
