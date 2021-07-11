@@ -10,7 +10,7 @@ What was done:
 - Retrieve history of weather conditions for a selected city.
 - Retrieve current weather conditions for a selected city and statistical information - average, max and min value of each weather unit of measure.
 - support storing historical temperature data per city and limited count of statistical information.
-- Data stored in SQL DB, Entity Framework Core in use. Created data models with cascade delete behavior.(Didn't add migration)
+- Data stored in SQL DB, Entity Framework Core in use. Created data models with cascade delete behavior.
 - Application consists of following 3 layers: Domain Layer, Infrastructure Layer, UserInterface Layer.
 - Solution holds current weather conditions for a selected city and statistical information in cache (I set 2 minutes).
 - Application should be possible to launch from Visual Studio in a one click with only change of DB connection string. Seed data should be populated by application so no need to run extra sql script is required. The only place where I indicated a connection string is appsettings file.
